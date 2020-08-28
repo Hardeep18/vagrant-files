@@ -1,0 +1,21 @@
+
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
+Vagrant.configure(2) do |config|
+
+  NodeCount = 1
+
+  (1..NodeCount).each do |i|
+    config.vm.define "ubuntuvm0#{i}" do |node|
+      node.vm.box = "bento/ubuntu-18.04"
+      node.vm.hostname = "cloudops.co.in"
+      node.vm.network "private_network", ip: "10.22.0.99"
+      node.vm.provider "virtualbox" do |v|
+        v.name = "myworkspace"
+        v.memory = 2048
+        v.cpus = 1
+      end
+    end
+  end
+
+end
